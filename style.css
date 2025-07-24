@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*Com este comando o elemento mantém seu tamaho(altura e largura) igual apenas se adapta para receber outras configs, ou seja, se tivermos um elemento com width: 200 padding: 20 o tamanho final não será 240 mas sim manterá o 200 */
+}
+
+body{
+    background-image: url("./assets/bg.jpg");
+    background-repeat: no-repeat; /* no-repeat é um keyword */
+    background-size: 100% auto; /* width heigth */
+    background-position: top center; /* vertical(y) horizontal(x) */
+    background-color: #121214;
+    color: white;
+}
+
+body *, :root { 
+    font-family: "Inter"; /* serve para aplicar a font do google, O valor entre parenteses "Inter" é o nome da font */
+    line-height: 160%;
+}
+/* 
+O seletor "*" indica que todos os elementos dentro do body 
+sofreram as configurações que estão dentro das chaves 
+*/
+
+header{
+    padding-top: 32px;
+    text-align: center;
+}
+
+header img{
+    width: 15rem;
+}
+
+main{
+    max-width: 36rem;
+    width: 90%;
+    margin: 3rem auto;
+}
+
+/*Parte muito interessante, explicação a baixo*/
+section{
+    background-image: linear-gradient(90deg, #9572fc 0%, #43e7ad 50%, #e2d45c 100%); /* Cria um degrade colorido como fundo do elemento, 90deg(90graus) indica a direção da esquerda para direita. Em seguida temos as cores e as porcentagens que indicaram a posição de cada cor.9572fc 0% → começa com roxo no início (0%). #43e7ad 50% → passa para verde claro no meio (50%).#e2d45c 100% → termina com amarelo no final (100%).*/
+    border-radius: 0.625rem;
+    padding-top: 4px;
+}
+
+section > div{ /*Esta forma selector, está se referindo apenas as tag div filhas da tag section ou seja, as tags filhas que estão diretamente dentro da tag section, e não as tags div que estão dentro de outras tags que por sua vez estão dentro da tag section */
+    padding: 2rem;
+    padding-top: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #2a2634;
+}
+
+/*O section possui um background-image e o section > div um background-color, porém como incialmente os dois tinham o mesmo tamanho o background-image 
+não aparecia, então utilizou o padding-top: 4rem; para gerar um afastamente interno fazendo com que o background-image parece-se e tivesse aquele feito super bacana */
+
+section h2 {
+    letter-spacing: -o.47px;
+}
+
+section p {
+    letter-spacing: -o.18px;
+    color: #a1a1aa;
+}
+
+/*Criação de animações*/
+
+main section{ /* Nós estamos definindo aqui o estado inicial para a section presente dentro da main */
+    opacity: 0; /* A opacidade vai de 0 a 1, 0-invisivel 1-totalemente visivel. Então estamos definindo que no estado inicial ele estará invisivel*/
+    transform: translateY(2rem); /* Esta config CSS desloca inicialemente o section 2 rem para baixo, fora da posição que deveria estar  */
+    animation-name: appear; /*aqui ele esta chamando a animação, que indicará oq acontecerá após o momento inicial*/
+    animation-duration: 700ms; /*Define que a animação vai durar 700milesegundos*/
+    animation-fill-mode: forwards; /*responsalvel por manter o estilo final da animação após ela terminar, ou seja , neste caso manterá aquilo que está dentro da animação appear*/
+}
+
+@keyframes appear { /*@keyframes define os quadros(frames) que mostra como um elemento deve ficar ao longo do tempo*/
+    100%{ /*Representa o estado final da animação, ou seja, quando a animação terminar ela deve estar seguindo as configs abaixo*/
+        opacity: 1; /*Ela deve estar totalmente visivel*/
+        transform: translateY(0); /*Define que no final da animação o elemento deve estar na posição que sempre deveria estar estar, e não 2 rem para baixo, igual o comando " transform: translateY(2rem);" fez com que acontece-se*/
+    }  
+}
+
+/*Formulario*/
+
+form{
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin: 1.25rem 0;
+}
+
+input, select{
+    all: unset; /*Tira todas as configurações que já vem por padrão do input e do select */
+    border: 2px solid #9147ff;
+    border-radius: 0.5rem;
+    padding: 0.675rem;
+    font-size: 0.875rem;
+    background-color: #00000066;
+}
+input{
+    flex: 1; /*faz com que o input ocupe 100% do espaço disponivel*/
+}
+
+button{
+    width: 100%;
+    border: 0;
+    background-image: linear-gradient(245deg, #9572fc 0%, #43e7ad 50%, #e2d45c 100%);
+    padding: 0.675rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.12px;
+
+    transition: all 0.3s; /*Define que qualquer mudança de propriedade do button neste caso o button:hover terá uma duração de 0.3s */
+}
+
+button:hover { /*define que quando o mouse passar por cima os ofeitos contidos dentro das chaves serão aplicados*/
+    cursor: pointer; /*tranforma o cursos em uma mão*/
+    transform: translateY(-2px); /*este comando faz com que o botão vá 2px para cima mas só ocorre quando o mouse passa em cima por conta do button:hover*/
+    box-shadow: 0 5px 1rem rgba(255, 248, 107, 0.2); /*gera um sombra embaixo do botão*/
+}
+
+button:disabled { /*Está configuração CSS só será executada quando o button receber a propriedade disabled, coisa que ocorrerá dentro da função enviarFormulário lá no JavaScript*/
+    transition: none;
+    transform: translate(0);
+    box-shadow: initial;
+    cursor: not-allowed;
+    color: black;
+}
+
+#aiResponse{ /* Está estilizando a resposta da IA*/
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    border-left: 4px solid #43e7ad;
+}
+
+#aiResponse ul { /*As respostas conterão uma lista do tipo ul e aqui ele está defindo o estilo que essas listas terão*/
+    padding-left: 1.5rem;
+    opacity: 0.8;
+}
+
+#aiResponse p { /*Aqui ele está estilizando cada linha da resposta da IA*/
+    color: white;
+}
+
+.loading{
+    animation: pulse 1s infinite; /*Aqui nós estamos chamando a animação pulse, onde cada execução terá 1s de duração, e ele ficará sendo executado uma vez atras da outra infinitamente*/
+}
+
+.hidden{ /*Este trecho serve para que quando não seja feito nem uma pergunta não fique um campo vazio embaixo do botão perguntar*/ 
+    display: none;
+}
+
+@keyframes pulse{ /*Aqui estamos criando a animação pulse. O 50% quer dizer que quando atingir metade do tempo de duração de cada animação será executado a opacidade de 0.5, oque fará o botão ter um efeito de estar pulsando*/
+    50% { 
+        opacity: 0.5;
+    }
+}
